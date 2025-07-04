@@ -9,31 +9,12 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <button class="toggle-theme" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i> Mode Gelap</button>
+
 <main class="container">
   <div class="row mb-4 mt-4">
     <img src="logoo.png" alt="book" class="img-fluid" style="width: 25%" />
-    <div class="col-12 mt-4">
-      <input class="form-control form-control-lg" type="text" placeholder="Search" id="keyword" name="search" />
-    </div>
-    <div class="col-12 mt-3">
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="filter" value="title" id="filter_title" checked />
-        <label class="form-check-label" for="filter_title">Title</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="filter" value="author" id="filter_author" />
-        <label class="form-check-label" for="filter_author">Author</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="filter" value="publisher" id="filter_publisher" />
-        <label class="form-check-label" for="filter_publisher">Publisher</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="filter" value="titleYear" id="filter_titleyear" />
-        <label class="form-check-label" for="filter_titleyear">Title and Year</label>
-      </div>
-    </div>
-  </div>
+  <h1>Selamat Datang Di Sejuta Kenangan</h1>
 
   <div class="row" id="book-list">
     <div class="col-sm-6 col-lg-4 mb-4 book">
@@ -169,6 +150,36 @@
     
   </div> 
     
+<script>
+  const scrollBtn = document.getElementById("scrollTopBtn");
+    window.onscroll = () => {
+      scrollBtn.style.display = window.scrollY > 300 ? "block" : "none";
+    };
+    scrollBtn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+ const navLinks = document.querySelectorAll('.nav-link');
+    window.addEventListener('scroll', () => {
+      let fromTop = window.scrollY + 100;
+      navLinks.forEach(link => {
+        let section = document.querySelector(link.getAttribute("href"));
+        if (section.offsetTop <= fromTop && section.offsetTop + section.offsetHeight > fromTop) {
+          navLinks.forEach(l => l.classList.remove("active"));
+          link.classList.add("active");
+        }
+      });
+    });
+  const boxes = document.querySelectorAll('.article-box');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    }, { threshold: 0.2 });
 
+    boxes.forEach(box => observer.observe(box));
+  function toggleTheme() {
+      document.body.classList.toggle('dark');
+    }
+</script>
 </body>
 </html>
